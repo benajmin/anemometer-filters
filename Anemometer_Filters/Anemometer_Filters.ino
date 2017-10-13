@@ -1,3 +1,17 @@
+// Constants for exponential filter
+float expWeightingFactor = 0.3;
+
+int expValue = -5000;
+int exponentialFilter(int reading){
+  //first value
+  if (expValue == -5000){
+    expValue = reading;
+  }else{
+    expValue = expWeightingFactor*reading + (1 - expWeightingFactor)*expValue;
+  }
+  return expValue;
+}
+
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -11,7 +25,7 @@ void loop() {
   // put your main code here, to run repeatedly:
   int reading = getData();
 
-  Serial.println(reading);
+  Serial.println(exponentialFilter(reading));
   delay(100);
   x+=1;
 
