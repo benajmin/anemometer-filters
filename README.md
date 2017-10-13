@@ -12,7 +12,7 @@ The smooth data is intended to represent the true direction of the wind relative
 
 Every tick there is a one in **accelChance** of there being a large shift in the wind's direction. These shifts are intended to simulate a gust or change in the boat's heading. If that's the case the second derivative of the graph will increase to up to **accelRate**. The magnitude of this second derivative will decrease by up to **accelDecrease** every tick until it reaches zero. At this point the magnitude of the first derivative will decrease up to **velDecrease** every tick until it is within the normal range defined by **maxVel**.
 
-![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Smooth Data.png "Graph of Spikes")
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Smooth%20Data.png "Graph of Spikes")
 
 ### 2. Noise
 
@@ -32,4 +32,4 @@ Spikes have a 1 in **spikeChance** of occurring each tick. When a spike occurs t
 
 This data is all summed to produce the full simulated data as shown. An efficient filter should be able to take this simulated data and produce something resembling the smooth data it was based on.
 
-![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Simulated Data.png "Graph of Simulated Data")
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Simulated%20Data.png "Graph of Simulated Data")
