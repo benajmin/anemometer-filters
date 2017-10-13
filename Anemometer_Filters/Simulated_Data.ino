@@ -4,6 +4,7 @@ const float accelRate = 0.8; //rate of larger change
 const float accelDecrease = 0.1; // rate at which larger change stops
 const float velDecrease = 0.5; // rate at which larger change stops
 const float velChange = 0.03; // rate of small changes
+const float maxVel = 0.5/3; // maximum velocity for slow drift
 
 //Constants for noise
 const float maxNoise = 5;
@@ -23,11 +24,11 @@ float smoothAccel = 0, smoothVel = 0, smooth = 180;
 int smoothData() {
   if (smoothAccel == 0){
     //random chance of sudden larger change
-    if (random(0,accelChance) == 0 && smoothVel < velDecrease/2 && smoothVel > -1 * velDecrease/2){
+    if (random(0,accelChance) == 0 && smoothVel < maxVel && smoothVel > -1 * maxVel){
       smoothAccel = random(-100, 100)*(accelRate/100);
     }
     //small random changes
-    if (smoothVel < velDecrease/3 && smoothVel > -1 * velDecrease/3){
+    if (smoothVel < maxVel && smoothVel > -1 * maxVel){
       smoothVel += random(-100, 100)*(velChange/100);
     }else{ //slow down after larger change
       smoothVel -= sign(smoothVel) * random(0, 100)*(velDecrease/100);
