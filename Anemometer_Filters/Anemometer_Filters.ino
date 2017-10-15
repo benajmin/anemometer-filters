@@ -9,9 +9,16 @@ int exponentialFilter(int reading){
     expValue = reading;
     expFirstValueFlag = false;
   }else{
+    //deal with vaue wrapping
+    if (reading < 90 && expValue > 270){
+      expValue -= 360;
+    }else if (reading > 270 && expValue < 90){
+      expValue += 360;
+    }
     expValue = expWeightingFactor*reading + (1 - expWeightingFactor)*expValue;
   }
-  return expValue;
+  
+  return (expValue + 360) % 360;
 }
 
 void setup() {
