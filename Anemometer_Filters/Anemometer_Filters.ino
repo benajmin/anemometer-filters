@@ -1,11 +1,13 @@
 // Constants for exponential filter
 float expWeightingFactor = 0.3;
 
-int expValue = -5000;
+int expValue = 0;
+bool expFirstValueFlag = true;
 int exponentialFilter(int reading){
   //first value
-  if (expValue == -5000){
+  if (expFirstValueFlag = true){
     expValue = reading;
+    expFirstValueFlag = false;
   }else{
     expValue = expWeightingFactor*reading + (1 - expWeightingFactor)*expValue;
   }
