@@ -33,3 +33,17 @@ Spikes have a 1 in **spikeChance** of occurring each tick. When a spike occurs t
 This data is all summed to produce the full simulated data as shown. An efficient filter should be able to take this simulated data and produce something resembling the smooth data it was based on.
 
 ![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Simulated%20Data.png "Graph of Simulated Data")
+
+## Filter 
+
+### Exponential Moving Average
+
+Graphs of the data passed through the exponential filter are shown below. The filter can be adjusted by changing the value of **expWeightingFactor**. A higher value favors more recent data while a lower value more heavily weights older data.
+
+#### Exponential Filter with Weighting Factor = 0.02
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Exponential%20Filter%2002.png "Graph of Exponential Filtered Data Weighting Factor 0.02")
+
+#### Exponential Filter with Weighting Factor = 0.07
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Exponential%20Filter%2007.png "Graph of Exponential Filtered Data Weighting Factor 0.07")
