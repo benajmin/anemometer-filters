@@ -47,3 +47,15 @@ Graphs of the data passed through the exponential filter are shown below. The fi
 #### Exponential Filter with Weighting Factor = 0.07
 
 ![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Exponential%20Filter%2007.png "Graph of Exponential Filtered Data Weighting Factor 0.07")
+
+### Simple Moving Average
+
+Graphs of the data passed through the average filter are shown below. The filter simply takes the mean of the past **averageFactor** data points.
+
+#### Average Filter with Factor = 10
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Average%20Filter%2010.png "Graph of Average Filtered Data Factor 10")
+
+#### Average Filter with Factor = 50
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Average%20Filter%2050.png "Graph of Average Filtered Data Factor 50")
