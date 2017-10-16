@@ -156,7 +156,7 @@ void loop() {
     int reading = getData();
     
     Serial.println(averageFilter(reading));
-    delay(1o0);
+    delay(100);
     x+=1;
     
     if (x == 3000){
