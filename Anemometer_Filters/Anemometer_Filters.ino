@@ -23,7 +23,7 @@ int exponentialFilter(int reading){
 
 
 // Constants for average filter
-const int averageFactor = 30;
+const int averageFactor = 50;
 
 int avgValue[averageFactor+1];
 int lastAvg = 0;
@@ -74,6 +74,75 @@ int averageFilter(int reading){
 }
 
 
+// Constants for triangular filter
+const int triFactor = 50;
+
+int triValue[triFactor+1];
+int lastTriAvg = 0;
+bool triFirstValueFlag = true;
+int triWrapValue = 0;
+int triDenominator = triFactor*(triFactor+1)/2;
+int triSum;
+int triangularFilter(int reading){
+    //first value
+    if (triFirstValueFlag == true){
+        for (int i = 0; i <= triFactor; i++){
+            triValue[i] = reading;
+        }
+        lastTriAvg = reading;
+        triFirstValueFlag = false;
+        triSum = reading*triFactor;
+    }else{
+        //shift values
+        for (int i = triFactor; i > 0; i--){
+            triValue[i] = triValue[i-1];
+        }
+        triValue[0] = reading;
+    }
+
+    //deal with wrapping
+    if (reading < 90 && lastTriAvg > 270){
+        lastTriAvg -= 360;
+    }else if (reading > 270 && lastTriAvg < 90){
+        lastTriAvg += 360;
+    }
+
+    //deal with wrapping
+    if (reading < 90 && triSum/triFactor > 270){
+        triSum -= 360*triFactor;
+    }else if (reading > 270 && triSum/triFactor < 90){
+        triSum += 360*triFactor;
+        //Serial.print(triSum/triFactor);Serial.println("YEAAAHHH");
+    }
+
+    //keep track of whether reading has wrapped further than tail of average
+    if (reading < 90 && triValue[1] > 270){
+        triWrapValue -= 1;
+    }else if (reading > 270 && triValue[1] < 90){
+        triWrapValue += 1;
+        //Serial.print("aaaaahhhh1");Serial.print(reading);
+    }
+
+    //calculate average
+    lastTriAvg += triFactor*reading/triDenominator - triSum/triDenominator;
+    lastTriAvg = (lastTriAvg + 360) % 360;
+
+    triSum += reading - (triValue[triFactor] + 360*triWrapValue);
+
+    //Serial.print(triWrapValue);Serial.print("   ");
+
+    //track tail wrap
+    if (triValue[triFactor-1] < 90 && triValue[triFactor] > 270){
+        triWrapValue += 1;
+        //Serial.print("aaaaahhhh2");
+    }else if (triValue[triFactor-1] > 270 && triValue[triFactor] < 90){
+        triWrapValue -= 1;
+    }
+
+    return lastTriAvg;
+}
+
+
 void setup() {
     // put your setup code here, to run once:
     Serial.begin(9600);
@@ -87,7 +156,7 @@ void loop() {
     // put your main code here, to run repeatedly:
     int reading = getData();
     
-    Serial.println(averageFilter(reading));
+    Serial.println(triangularFilter(reading));
     delay(10);
     x+=1;
     
