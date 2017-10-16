@@ -40,13 +40,13 @@ This data is all summed to produce the full simulated data as shown. An efficien
 
 Graphs of the data passed through the exponential filter are shown below. The filter can be adjusted by changing the value of **expWeightingFactor**. A higher value favors more recent data while a lower value more heavily weights older data.
 
-#### Exponential Filter with Weighting Factor = 0.02
-
-![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Exponential%20Filter%2002.png "Graph of Exponential Filtered Data Weighting Factor 0.02")
-
 #### Exponential Filter with Weighting Factor = 0.07
 
 ![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Exponential%20Filter%2007.png "Graph of Exponential Filtered Data Weighting Factor 0.07")
+
+#### Exponential Filter with Weighting Factor = 0.02
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Exponential%20Filter%2002.png "Graph of Exponential Filtered Data Weighting Factor 0.02")
 
 ### Simple Moving Average
 
@@ -59,3 +59,15 @@ Graphs of the data passed through the average filter are shown below. The filter
 #### Average Filter with Factor = 50
 
 ![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Average%20Filter%2050.png "Graph of Average Filtered Data Factor 50")
+
+### Triangular Moving Average
+
+Graphs of the data passed through the average filter are shown below. The filter takes a weighted average of the past **averageFactor** data points with more recent points weighted more heavily.
+
+#### Triangular Filter with Factor = 20
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Triangular%20Filter%2020.png "Graph of Triangular Filtered Data Factor 20")
+
+#### Average Filter with Factor = 50
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Triangular%20Filter%2050.png "Graph of Triangular Filtered Data Factor 50")
