@@ -23,10 +23,10 @@ int exponentialFilter(int reading){
 
 
 // Constants for average filter
-const int averageFactor = 50;
+const int averageFactor = 10;
 
 int avgValue[averageFactor+1];
-int lastAvg = 0;
+float lastAvg = 0;
 bool avgFirstValueFlag = true;
 int avgWrapValue = 0;
 int averageFilter(int reading){
@@ -60,8 +60,7 @@ int averageFilter(int reading){
     }
 
     //calculate average
-    lastAvg += reading/averageFactor - (avgValue[averageFactor]+360*avgWrapValue)/averageFactor;
-    lastAvg = (lastAvg + 360) % 360;
+    lastAvg += (float)reading/averageFactor - ((float)avgValue[averageFactor]+360*avgWrapValue)/averageFactor;
 
     //track tail wrap
     if (avgValue[averageFactor-1] < 90 && avgValue[averageFactor] > 270){
@@ -70,7 +69,7 @@ int averageFilter(int reading){
         avgWrapValue -= 1;
     }
 
-    return lastAvg;
+    return ((int) lastAvg + 360) % 360;
 }
 
 
@@ -156,8 +155,8 @@ void loop() {
     // put your main code here, to run repeatedly:
     int reading = getData();
     
-    Serial.println(triangularFilter(reading));
-    delay(10);
+    Serial.println(averageFilter(reading));
+    delay(1o0);
     x+=1;
     
     if (x == 3000){
