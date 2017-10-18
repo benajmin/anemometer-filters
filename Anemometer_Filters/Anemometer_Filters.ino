@@ -1,5 +1,5 @@
 // Constants for exponential filter
-const float expWeightingFactor = 0.07;
+const float expWeightingFactor = 0.02;
 
 int expValue = 0;
 bool expFirstValueFlag = true;
@@ -127,6 +127,60 @@ int triangularFilter(int reading){
 }
 
 
+//Constants for median filter
+const int medFactor = 30;
+
+int medValue[medFactor+1];
+int medValueSorted[medFactor+1];
+bool medFirstValueFlag = true;
+
+int medianFilter(int reading){
+    if (medFirstValueFlag){
+        for (int i = 0; i < medFactor; i++){
+            medValue[i] = reading;
+            medValueSorted[i] = reading;
+        }
+        
+        medFirstValueFlag = false;
+    }
+
+    // wrap data
+    if (reading < 90 && medValue[0] > 270){
+        for (int i = 0; i < medFactor; i++){
+            medValue[i] = medValue[i] - 360;
+            medValueSorted[i] = medValueSorted[i] - 360;
+        }
+    }else if (reading > 270 && medValue[0] < 90){
+        for (int i = 0; i < medFactor; i++){
+            medValue[i] = medValue[i] + 360;
+            medValueSorted[i] = medValueSorted[i] + 360;
+        }
+    }
+
+    //remove last value
+    for (int i = 0; i < medFactor-1; i++){
+        if (medValueSorted[i] >= medValue[medFactor-1]){
+            medValueSorted[i] = medValueSorted[i+1];
+        }
+    }
+
+    //insert new value
+    int i = medFactor-1;
+    while (medValueSorted[i] > reading && i > 0){
+        medValueSorted[i] = medValueSorted[i-1];
+        i--;
+    }
+    medValueSorted[i] = reading;
+
+    //shift chronological values
+    for (int i = medFactor-1; i > 0; i--){
+        medValue[i] = medValue[i-1];
+    }
+    medValue[0] = reading;
+    
+    return (medValueSorted[int(medFactor/2)] +360) % 360;
+}
+
 void setup() {
     // put your setup code here, to run once:
     Serial.begin(9600);
@@ -140,7 +194,7 @@ void loop() {
     // put your main code here, to run repeatedly:
     int reading = getData();
     
-    Serial.println(triangularFilter(reading));
+    Serial.println(medianFilter(reading));
     delay(10);
     x+=1;
     
