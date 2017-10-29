@@ -71,3 +71,23 @@ Graphs of the data passed through the average filter are shown below. The filter
 #### Average Filter with Factor = 50
 
 ![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Triangular%20Filter%2050.png "Graph of Triangular Filtered Data Factor 50")
+
+## Median Filter
+
+Graphs of the data passed through the median filter are shown below. The filter takes the median of the past **medFactor** data points. Spikes appear in the data; solutions to this are suggested below.
+
+### Median Filter with Factor = 25
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Median%20Filter%2025.png "Graph of Triangular Filtered Data Factor 20")
+
+### Median Filter with Factor = 50
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Median%20Filter%2050.png "Graph of Triangular Filtered Data Factor 20")
+
+## Combined Filters
+
+The median filter does a good job of flattening out the data with sharp changes when the wind shifts. However, it causes short spikes in the data. This can be fixed by passing the data through two filters. By passing the data through the average filter after the median filter we can take a simple moving average of a small number of points as outputted from the median filter. 
+
+### Average of Median Filter, Average Factor = 10, Median Factor = 50
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Med50Avg10.png "Graph of Triangular Filtered Data Factor 20")
