@@ -72,22 +72,38 @@ Graphs of the data passed through the average filter are shown below. The filter
 
 ![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Triangular%20Filter%2050.png "Graph of Triangular Filtered Data Factor 50")
 
-## Median Filter
+### Median Filter
 
 Graphs of the data passed through the median filter are shown below. The filter takes the median of the past **medFactor** data points. Spikes appear in the data; solutions to this are suggested below.
 
-### Median Filter with Factor = 25
+#### Median Filter with Factor = 25
 
-![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Median%20Filter%2025.png "Graph of Triangular Filtered Data Factor 20")
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Median%20Filter%2025.png "Graph of Median Filtered Data Factor 25")
 
-### Median Filter with Factor = 50
+#### Median Filter with Factor = 50
 
-![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Median%20Filter%2050.png "Graph of Triangular Filtered Data Factor 20")
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Median%20Filter%2050.png "Graph of Median Filtered Data Factor 50")
 
-## Combined Filters
+### Combined Filters
 
 The median filter does a good job of flattening out the data with sharp changes when the wind shifts. However, it causes short spikes in the data. This can be fixed by passing the data through two filters. By passing the data through the average filter after the median filter we can take a simple moving average of a small number of points as outputted from the median filter. 
 
-### Average of Median Filter, Average Factor = 10, Median Factor = 50
+#### Average of Median Filter, Average Factor = 10, Median Factor = 50
 
-![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Med50Avg10.png "Graph of Triangular Filtered Data Factor 20")
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Med50Avg10.png "Graph of Combined Filtered Data")
+
+## Step Detection
+
+In order to prevent publishing new values ten times per second unnecessarily I added a very simple step detector. The function checks if the current value is further than **stepDistance** from the last published value. Currently the function constantly outputs the value in order to properly graph and visualize the function, but in implementation should be changed to a predicate used to decide when to publish a value.
+
+#### Step Detection with Average Filter, Step Distance = 5, Average Factor = 50
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Step%20Detect%205%20Average%2050.png "Graph of Step Detect Average Filtered Data")
+
+#### Step Detection with Exponential Filter, Step Distance = 5, Exponential Factor = 50
+
+![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Step%20Detect%205%20Exp%2007.png "Graph of Step Detect Exponential Filtered Data")
+
+## Conclusions
+
+Based on the simulated data, an average filter with a factor if 50 put through the step detector gives the best results. However, this comes at a cost of complexity and higher memory usage. The exponential filter with a factor of 0.02 gives comparable results while using a fraction of the memory. As such I believe the exponential filter should be used in conjunction with simple step detection. Various constants used will have to be fine tuned with real data.
