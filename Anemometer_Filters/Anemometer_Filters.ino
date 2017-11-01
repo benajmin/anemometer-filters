@@ -1,5 +1,5 @@
 // Constants for exponential filter
-const float expWeightingFactor = 0.02;
+const float expWeightingFactor = 0.07;
 
 int expValue = 0;
 bool expFirstValueFlag = true;
@@ -23,7 +23,7 @@ int exponentialFilter(int reading){
 
 
 // Constants for average filter
-const int averageFactor = 10;
+const int averageFactor = 50;
 
 int avgValue[averageFactor+1];
 float lastAvg = 0;
@@ -128,7 +128,7 @@ int triangularFilter(int reading){
 
 
 //Constants for median filter
-const int medFactor = 30;
+const int medFactor = 25;
 
 int medValue[medFactor+1];
 int medValueSorted[medFactor+1];
@@ -194,8 +194,8 @@ void loop() {
     // put your main code here, to run repeatedly:
     int reading = getData();
     
-    Serial.println(medianFilter(reading));
-    delay(10);
+    Serial.println(reading);
+    delay(100);
     x+=1;
     
     if (x == 3000){
