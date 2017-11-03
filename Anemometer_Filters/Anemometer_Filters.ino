@@ -128,7 +128,7 @@ int triangularFilter(int reading){
 
 
 //Constants for median filter
-const int medFactor = 25;
+const int medFactor = 50;
 
 int medValue[medFactor+1];
 int medValueSorted[medFactor+1];
@@ -166,7 +166,7 @@ int medianFilter(int reading){
 
     //insert new value
     int i = medFactor-1;
-    while (medValueSorted[i] > reading && i > 0){
+    while (i > 0 && medValueSorted[i-1] > reading){
         medValueSorted[i] = medValueSorted[i-1];
         i--;
     }
@@ -194,12 +194,11 @@ void loop() {
     // put your main code here, to run repeatedly:
     int reading = getData();
     
-    Serial.println(reading);
-    delay(100);
+    Serial.println(medianFilter(reading));
+    delay(10);
     x+=1;
     
     if (x == 3000){
         Serial.println("5 minutes");
     }
 }
-

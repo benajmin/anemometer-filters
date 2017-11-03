@@ -32,7 +32,7 @@ Spikes have a 1 in **spikeChance** of occurring each tick. When a spike occurs t
 
 This data is all summed to produce the full simulated data as shown. An efficient filter should be able to take this simulated data and produce something resembling the smooth data it was based on.
 
-![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Simulated%20Data.png "Graph of Simulated Data")
+t
 
 ## Filter 
 
@@ -74,7 +74,7 @@ Graphs of the data passed through the average filter are shown below. The filter
 
 ### Median Filter
 
-Graphs of the data passed through the median filter are shown below. The filter takes the median of the past **medFactor** data points. Spikes appear in the data; solutions to this are suggested below.
+Graphs of the data passed through the median filter are shown below. The filter takes the median of the past **medFactor** data points. 
 
 #### Median Filter with Factor = 25
 
@@ -83,14 +83,6 @@ Graphs of the data passed through the median filter are shown below. The filter 
 #### Median Filter with Factor = 50
 
 ![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Median%20Filter%2050.png "Graph of Median Filtered Data Factor 50")
-
-### Combined Filters
-
-The median filter does a good job of flattening out the data with sharp changes when the wind shifts. However, it causes short spikes in the data. This can be fixed by passing the data through two filters. By passing the data through the average filter after the median filter we can take a simple moving average of a small number of points as outputted from the median filter. 
-
-#### Average of Median Filter, Average Factor = 10, Median Factor = 50
-
-![alt text](https://raw.githubusercontent.com/benajmin/anemometer-filters/master/Graphs/Med50Avg10.png "Graph of Combined Filtered Data")
 
 ## Step Detection
 
