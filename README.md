@@ -32,7 +32,6 @@ Spikes have a 1 in **spikeChance** of occurring each tick. When a spike occurs t
 
 This data is all summed to produce the full simulated data as shown. An efficient filter should be able to take this simulated data and produce something resembling the smooth data it was based on.
 
-t
 
 ## Filter 
 
