@@ -1,3 +1,6 @@
+// Time interval between readings
+const timeInterval = 100;
+
 // Constants for exponential filter
 const float expWeightingFactor = 0.07;
 
@@ -190,15 +193,19 @@ void setup() {
 }
 
 int x = 0;
+unsigned long previousMillis = 0;
 void loop() {
     // put your main code here, to run repeatedly:
     int reading = getData();
-    
-    Serial.println(medianFilter(reading));
-    delay(10);
-    x+=1;
-    
-    if (x == 3000){
-        Serial.println("5 minutes");
+
+    if ((millis() - previousMillis) > timeInterval){
+        Serial.println(medianFilter(exponentialFilter(reading)));
+        x+=1;
+        
+        if (x == 3000){
+            Serial.println("5 minutes");
+        }
+
+        previousMillis = millis();
     }
 }
